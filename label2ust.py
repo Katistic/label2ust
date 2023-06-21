@@ -311,13 +311,14 @@ if __name__ == "__main__":
     
     q = input("Quantization in not length (whole number) [60]: ")
     q_note_length = 60 if q == "" else int(q)
-    tempo = input("Tempo (whole number) [120]: ")
-    tempo = 120 if tempo == "" else int(tempo)
     
     filenames = map(get_filename, glob.glob(os.path.join(lab_folder, "*.lab")))
     is_plugin = False
     
     if len(sys.argv) > 1: is_plugin = True
+    else:
+        tempo = input("Tempo (whole number) [120]: ")
+        tempo = 120 if tempo == "" else int(tempo)
     
     for filename in tqdm.tqdm(filenames, desc="Converting..."):
         label2ust(filename, lab_folder, frq_folder, ust_folder, fuse, q_note_length, tempo, is_plugin)
